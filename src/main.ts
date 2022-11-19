@@ -16,6 +16,15 @@ export default class ThemeSwitch extends HTMLElement {
     get right() {
         return this.getAttribute('right') || 'dark';
     }
+    get left_meta() {
+        return this.getAttribute('left_meta') || '';
+    }
+    get mid_meta() {
+        return this.getAttribute('mid_meta') || '';
+    }
+    get right_meta() {
+        return this.getAttribute('right_meta') || '';
+    }
     get theme() {
         return this.getAttribute('theme') || this.mid;
     }
@@ -83,6 +92,16 @@ export default class ThemeSwitch extends HTMLElement {
         }
         if (theme === $this.mid) $this.chk = "mid";
         if (theme === $this.right) $this.chk = "right";
+
+        // Set browser meta theme-color
+		let metaThemeColor = document.querySelector("meta[name='theme-color']");
+		console.log("🚀 ~ file: main.ts ~ line 98 ~ ThemeSwitch ~ setTheme ~ metaThemeColor", metaThemeColor)
+		if (metaThemeColor) {
+			let color = $this.mid_meta;
+			if (theme === $this.left) color = $this.left_meta;
+			if (theme === $this.right) color = $this.right_meta;
+			if (color) metaThemeColor.setAttribute("content", color);
+		}
 
         // Store theme
         window.localStorage.setItem("theme", theme);
