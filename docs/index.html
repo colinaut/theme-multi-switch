@@ -15,36 +15,13 @@
 		<main>
 			<header class="content">
 				<h1>Theme 3way Switch Web Component</h1>
-				<p>Super Small! 3.80 KiB / gzip: 1.47 KiB</p>
-				<p>Github: <a href="https://github.com/colinaut/theme-3way-switch">colinaut/theme-3way-switch</a></p>
-				<p>NPM: <a href="https://www.npmjs.com/package/@colinaut/theme-3way-switch">@colinaut/theme-3way-switch</a></p>
+				<div>
+					<p><strong>Super Small!</strong> 3.80 KiB / gzip: 1.47 KiB</p>
+					<p>Github: <a href="https://github.com/colinaut/theme-3way-switch">colinaut/theme-3way-switch</a></p>
+					<p>NPM: <a href="https://www.npmjs.com/package/@colinaut/theme-3way-switch">@colinaut/theme-3way-switch</a></p>
+				</div>
 			</header>
 			<section class="content">
-				<p>
-					I created this theme switch as I couldn't find what I was looking for. So I built this 3way switch which defaults to "auto" (for browser prefers-color-scheme)
-					and allows "light" or "dark" for overriding prefers-color-scheme. If desired the theme names can be modified from their defaults via props.
-				</p>
-				<p>When switched is triggered it:</p>
-				<ul>
-					<li>Adds current theme to data-theme attribute on the html element.</li>
-					<li>Stores the current theme in localStorage under "theme" — <em>component checks for this on reload to set current theme state</em>.</li>
-					<li>Triggers a "theme-switch" custom event with the current theme as detail.</li>
-					<li>Optionally, updates meta theme-color using the "meta" props.</li>
-				</ul>
-				<p>
-					For best results, add this to your &lt;head&gt; so that it is render blocking. This avoids
-					<a href="https://css-tricks.com/flash-of-inaccurate-color-theme-fart/">Flash of inAccurate coloR Theme (FART)</a>.
-				</p>
-			</section>
-			<section>
-				<h2>Installation</h2>
-				<p>Add the theme-3way-switch.js script to your project. Then add the component <code>&lt;theme-switch>&lt;/theme-switch></code> to your html.</p>
-				<p>You can do this via CDN:</p>
-				<code>&lt;script src="https://unpkg.com/@colinaut/theme-3way-switch@1/dist/theme-3way-switch.js">&lt;/script></code>
-				<p>Or you can pull it into your project via npm:</p>
-				<code>npm i @colinaut/theme-3way-switch</code>
-			</section>
-			<section class="content-wide">
 				<h2>Examples</h2>
 				<div class="grid-cols-3 gap-8">
 					<div>
@@ -76,7 +53,33 @@
 					</div>
 				</div>
 			</section>
-			<section class="content-wide">
+			<section class="content">
+				<p>
+					I created this theme switch as I couldn't find what I was looking for. So I built this 3way switch which defaults to "auto" (for browser prefers-color-scheme)
+					and allows "light" or "dark" for overriding prefers-color-scheme. If desired the theme names can be modified from their defaults via props.
+				</p>
+				<p>When switched is triggered it:</p>
+				<ul>
+					<li>Adds current theme to data-theme attribute on the html element.</li>
+					<li>Stores the current theme in localStorage under "theme" — <em>component checks for this on reload to set current theme state</em>.</li>
+					<li>Triggers a "theme-switch" custom event with the current theme as detail.</li>
+					<li>Optionally, updates meta theme-color using the "meta" props.</li>
+				</ul>
+				<p>
+					For best results, add this to your &lt;head&gt; so that it is render blocking. This avoids
+					<a href="https://css-tricks.com/flash-of-inaccurate-color-theme-fart/">Flash of inAccurate coloR Theme (FART)</a>.
+				</p>
+			</section>
+			<section>
+				<h2>Installation</h2>
+				<p>Add the theme-3way-switch.js script to your project. Then add the component <code>&lt;theme-switch>&lt;/theme-switch></code> to your html.</p>
+				<p>You can do this via CDN:</p>
+				<code>&lt;script src="https://unpkg.com/@colinaut/theme-3way-switch@1/dist/theme-3way-switch.js">&lt;/script></code>
+				<p>Or you can pull it into your project via npm:</p>
+				<code>npm i @colinaut/theme-3way-switch</code>
+			</section>
+
+			<section class="content">
 				<div class="content">
 					<h2>Modifying</h2>
 					<p>
@@ -85,7 +88,7 @@
 					</p>
 					<p>Further restyling is possible via slots, parts, and css variables. Properties allows changing defaults and values for changing meta theme-color.</p>
 				</div>
-				<div class="grid-cols-4 gap-8">
+				<div class="grid-cols-2 gap-8">
 					<div>
 						<h3>Slots</h3>
 						<ul>
