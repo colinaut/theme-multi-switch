@@ -1,6 +1,8 @@
 # Theme 3way Switch Web Component
 
-I created this theme switch as I couldn't find what I was looking for. So I built this 3way switch which defaults to "auto" (for browser prefers-color-scheme) and allows "light" or "dark" for overriding prefers-color-scheme. If desired the theme names can be modified from their defaults via props.
+I created this theme switch as I couldn't find what I was looking for. So I built this 3way switch which defaults to "auto" (for browser prefers-color-scheme) and allows "light" or "dark" for overriding prefers-color-scheme. 
+
+Super small! 3.80 KiB / gzip: 1.47 KiB
 
 When switched is triggered it:
 
@@ -8,6 +10,8 @@ When switched is triggered it:
 *   Stores the current theme in localStorage under "theme" — _component checks for this on reload to set current theme state_.
 *   Triggers a "theme-switch" custom event with the current theme as detail.
 *   Optionally, updates meta theme-color using the "meta" props.
+
+If desired the theme names can be modified from their defaults via props. 
 
 ## Installation
 
