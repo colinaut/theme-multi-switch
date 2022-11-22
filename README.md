@@ -4,7 +4,7 @@ I created this theme switch as I couldn't find what I was looking for. So I buil
 
 Super small! 3.80 KiB / gzip: 1.47 KiB
 
-When switched is triggered it:
+When switch is triggered it:
 
 *   Adds current theme to data-theme attribute on the html element.
 *   Stores the current theme in localStorage under "theme" — _component checks for this on reload to set current theme state_.
