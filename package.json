@@ -16,6 +16,7 @@
 		"access": "public"
 	},
 	"scripts": {
+		"test": "echo \"No test specified\"",
 		"dev": "vite",
 		"build": "tsc && vite build",
 		"preview": "vite preview"
