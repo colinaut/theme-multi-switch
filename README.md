@@ -1,6 +1,6 @@
 # Theme 3way Switch Web Component
 
-I created this theme switch as I couldn't find what I was looking for. So I built this 3way switch which defaults to "auto" (for browser prefers-color-scheme) and allows "light" or "dark" for overriding prefers-color-scheme. 
+I created this three way switch for setting theme as I couldn't find what I was looking for — most are two way switches and I wanted to allow for auto. So I built this three way switch which defaults to "auto" (for browser prefers-color-scheme) and allows "light" or "dark" for overriding prefers-color-scheme. 
 
 Super small! 3.80 KiB / gzip: 1.47 KiB
 
