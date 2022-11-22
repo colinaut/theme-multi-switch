@@ -1,8 +1,20 @@
 {
 	"name": "theme-3way-switch",
-	"private": true,
 	"version": "1.0.0",
 	"type": "module",
+	"main": "dist/theme-3way-switch.js",
+	"unpkg": "dist/theme-3way-switch.js",
+	"keywords": [
+		"web component",
+		"typescript",
+		"theme switch"
+	],
+	"author": "Colin Fahrion",
+	"license": "MIT",
+	"repository": "https://github.com/colinaut/alpinejs-plugin-simple-validate.git",
+	"publishConfig": {
+		"access": "public"
+	},
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
