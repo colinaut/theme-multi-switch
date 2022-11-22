@@ -1,6 +1,6 @@
 {
 	"name": "@colinaut/theme-3way-switch",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"type": "module",
 	"main": "dist/theme-3way-switch.js",
 	"unpkg": "dist/theme-3way-switch.js",
