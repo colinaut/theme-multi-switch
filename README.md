@@ -11,7 +11,39 @@ When switched is triggered it:
 
 ## Installation
 
-Add the theme-3way-switch.js to your html file. For best results, add this to your `<head>` so that it is render blocking. This avoids [Flash of inAccurate coloR Theme (FART)](https://css-tricks.com/flash-of-inaccurate-color-theme-fart/).
+Add the theme-3way-switch.js script to your project. Then add the component `<theme-switch></theme-switch>` to your html.
+
+### CDN
+
+```
+<script src="https://unpkg.com/@colinaut/theme-3way-switch@1/dist/theme-3way-switch.js"></script>
+```
+
+For best results, add this to your `<head>` without defer so that it is render blocking. This avoids [Flash of inAccurate coloR Theme (FART)](https://css-tricks.com/flash-of-inaccurate-color-theme-fart/).
+
+### NPM/PNPM/YARN
+
+```
+npm i @colinaut/theme-3way-switch
+
+pnpm i @colinaut/theme-3way-switch
+
+yarn add @colinaut/theme-3way-switch
+
+```
+
+### Eleventy static site
+
+If you are using [Eleventy](https://www.11ty.dev), and want to install locally rather than rely on the CDN, you can install via NPM/PNPM/YARN and then pass through the js file so that it is included in the output. Then you would just need to add it to the head.
+
+```
+eleventyConfig.addPassthroughCopy({
+    "node_modules/@colinaut/theme-3way-switch/dist/theme-3way-switch.js": "js/theme-3way-switch.js",
+})
+```
+```
+<script src="/js/theme-3way-switch.js"></script>
+```
 
 ## Modifying
 
