@@ -15,6 +15,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
+	"homepage": "https://colinaut.github.io/theme-3way-switch/",
 	"scripts": {
 		"test": "echo \"No test specified\"",
 		"dev": "vite",
