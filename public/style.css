@@ -115,6 +115,7 @@ li {
 	padding: 1rem;
 }
 
+/* Values for light and dark */
 :root {
 	--header-light: rgb(95, 0, 0);
 	--body-light: rgb(45, 45, 65);

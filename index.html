@@ -113,7 +113,56 @@
 			</section>
 			<section>
 				<h2>Example Auto/Light/Dark CSS</h2>
-				<pre></pre>
+				<pre>
+/* Values for light and dark */
+
+:root {
+    --header-light: rgb(95, 0, 0);
+    --body-light: rgb(45, 45, 65);
+    --bg-light: rgb(225, 225, 225);
+    --track-light: rgb(205 195 165 /0.8);
+    --highlight-light: rgb(155, 50, 0);
+
+    --header-dark: rgb(250, 180, 120);
+    --body-dark: rgb(225, 225, 225);
+    --bg-dark: rgb(45, 45, 65);
+    --track-dark: rgb(105 85 55 /0.6);
+    --highlight-dark: rgb(225, 120, 100);
+}
+
+/* Automatic Light Mode; Light Mode Override */
+
+:root,
+:root[data-theme="light"] {
+    --header: var(--header-light);
+    --body: var(--body-light);
+    --bg: var(--bg-light);
+    --track: var(--track-light);
+    --highlight: var(--highlight-light);
+}
+
+/* Dark Mode Override */
+
+:root[data-theme="dark"] {
+    --header: var(--header-dark);
+    --body: var(--body-dark);
+    --bg: var(--bg-dark);
+    --track: var(--track-dark);
+    --highlight: var(--highlight-dark);
+}
+
+/* Automatic Dark Mode */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --header: var(--header-dark);
+        --body: var(--body-dark);
+        --bg: var(--bg-dark);
+        --track: var(--track-dark);
+        --highlight: var(--highlight-dark);
+    }
+}
+                </pre>
 			</section>
 		</main>
 	</body>
