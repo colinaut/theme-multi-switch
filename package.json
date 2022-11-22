@@ -18,10 +18,11 @@
 	"scripts": {
 		"test": "echo \"No test specified\"",
 		"dev": "vite",
-		"build": "tsc && vite build",
+		"build": "tsc && vite build && cpy 'docs/theme-3way-switch.*' 'dist'",
 		"preview": "vite preview"
 	},
 	"devDependencies": {
+		"cpy-cli": "^4.2.0",
 		"eslint": "^8.28.0",
 		"rollup-plugin-copy": "^3.4.0",
 		"rollup-plugin-minify-html-literals": "^1.2.6",

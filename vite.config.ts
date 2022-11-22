@@ -1,7 +1,6 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
 import minifyHTML from "rollup-plugin-minify-html-literals";
-import copy from "rollup-plugin-copy";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -22,9 +21,15 @@ export default defineConfig({
 				},
 			],
 			plugins: [
-				minifyHTML.default(), // instead of minifyHTML(),
-				copy({
-					targets: [{ src: "docs/theme-3way-switch.*", dest: "dist" }],
+				minifyHTML.default({
+					options: {
+						shouldMinify(template) {
+							return template.parts.some((part) => {
+								// Matches Polymer templates that are not tagged
+								return part.text.includes("<style") || part.text.includes("<div");
+							});
+						},
+					},
 				}),
 			],
 		},

@@ -125,6 +125,7 @@ export default class ThemeSwitch extends HTMLElement {
 
 	private render() {
 		this.shadow.innerHTML = `
+        <!-- css-->
         <style>
             .wrap {
                 position: relative;
@@ -208,6 +209,7 @@ export default class ThemeSwitch extends HTMLElement {
                 color: var(--theme-switch-highlight, inherit);
             }
         </style>
+        <!-- html -->
         <div class="wrap" data-active=${this.active}>
             <div class="side">
                 <label title="${this.left}" for="left" part="left">
