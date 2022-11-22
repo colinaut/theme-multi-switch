@@ -1,5 +1,5 @@
 {
-	"name": "theme-3way-switch",
+	"name": "@colinaut/theme-3way-switch",
 	"version": "1.0.0",
 	"type": "module",
 	"main": "dist/theme-3way-switch.js",
@@ -11,7 +11,7 @@
 	],
 	"author": "Colin Fahrion",
 	"license": "MIT",
-	"repository": "https://github.com/colinaut/alpinejs-plugin-simple-validate.git",
+	"repository": "https://github.com/colinaut/theme-3way-switch.git",
 	"publishConfig": {
 		"access": "public"
 	},
