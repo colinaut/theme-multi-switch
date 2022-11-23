@@ -30,9 +30,6 @@ export default class ThemeSwitch extends HTMLElement {
 	get layout(): string {
 		return this.getA("layout", "around top");
 	}
-	get knobW(): number {
-		return Number(this.getA("knob-width", "1"));
-	}
 	get themes(): string[] {
 		return this.getArray("themes", ["light", "auto", "dark"]);
 	}
@@ -55,12 +52,7 @@ export default class ThemeSwitch extends HTMLElement {
 		if (savedTheme) {
 			const active = this.themes.indexOf(savedTheme);
 			if (active >= 0) {
-				this.setTheme(this, savedTheme);
-			}
-		} else {
-			const themeAttr = this.themes.indexOf(this.theme);
-			if (themeAttr >= 0) {
-				this.setTheme(this, this.theme);
+				this.theme = savedTheme;
 			}
 		}
 
@@ -154,8 +146,6 @@ export default class ThemeSwitch extends HTMLElement {
 			.map((theme, i) => `[data-active="${theme}"] .knob { left: ${(i / (themes.length - 1)) * 100}%; transform: translateX(-${(i / (themes.length - 1)) * 100}%); }`)
 			.join("");
 
-		const cssTrackSpanWidth = this.knobW - 0.2;
-
 		let cssMidPadding = "1em 0 0";
 
 		let cssMidLabelPosition = "top";
@@ -164,7 +154,7 @@ export default class ThemeSwitch extends HTMLElement {
 			cssMidPadding = "0 0 1em";
 			cssMidLabelPosition = "bottom";
 		}
-		if (this.themes.length < 3) {
+		if (this.themes.length < 3 && this.layout.includes("around")) {
 			cssMidPadding = "0";
 		}
 		const css = `
@@ -205,7 +195,6 @@ export default class ThemeSwitch extends HTMLElement {
             }
             .mid .labels {
                 display: flex;
-                justify-content: space-around;
                 position: absolute;
                 width: 100%;
                 ${cssMidLabelPosition}: 0px;
@@ -215,7 +204,6 @@ export default class ThemeSwitch extends HTMLElement {
                 width: 100%;
                 display: flex;
                 justify-content: center;
-                padding: 0 .2em;
             }
             .track {
                 background: var(--theme-switch-track, #88888822);
@@ -225,11 +213,10 @@ export default class ThemeSwitch extends HTMLElement {
                 padding: 0 0.1em;
                 position: relative;
                 grid-area: switch;
-                width: ${cssTrackSpanWidth * themes.length}em;
                 display: flex;
             }
             .track span {
-                width: ${cssTrackSpanWidth}em;
+                width: calc(var(--theme-switch-knob-width, 1) * .9em);
                 flex-shrink: 0;
                 bottom: 0px;
                 position: relative;
@@ -241,7 +228,7 @@ export default class ThemeSwitch extends HTMLElement {
                 top: 0em;
                 background: var(--theme-switch-knob, currentColor);
                 transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-                width: ${this.knobW}em;
+                width: calc(var(--theme-switch-knob-width, 1) * 1em);
                 height: 1em;
                 border-radius: 0.1em;
             }
