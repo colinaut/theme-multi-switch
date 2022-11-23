@@ -148,11 +148,11 @@ export default class ThemeSwitch extends HTMLElement {
 
 		let cssMidPadding = "1em 0 0";
 
-		let cssMidLabelPosition = "top";
+		let cssMidLabelPosition = "top: 0px;";
 
 		if (this.layout.includes("bottom")) {
 			cssMidPadding = "0 0 1em";
-			cssMidLabelPosition = "bottom";
+			cssMidLabelPosition = "bottom: 0px;";
 		}
 		if (this.themes.length < 3 && this.layout.includes("around")) {
 			cssMidPadding = "0";
@@ -197,7 +197,7 @@ export default class ThemeSwitch extends HTMLElement {
                 display: flex;
                 position: absolute;
                 width: 100%;
-                ${cssMidLabelPosition}: 0px;
+                ${cssMidLabelPosition}
                 text-align: center;
             }
             .mid label {
