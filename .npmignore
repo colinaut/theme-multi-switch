@@ -1,9 +1,6 @@
 .eslintrc.js
 .hintrc
 .prettierrc
-dist/index.html
-dist/index.js
-dist/style.css
 index.html
 pnpm-lock.yaml
 public
