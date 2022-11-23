@@ -1,6 +1,6 @@
 {
 	"name": "@colinaut/theme-multi-switch",
-	"version": "0.7.0",
+	"version": "0.8.0",
 	"type": "module",
 	"main": "dist/theme-multi-switch.js",
 	"unpkg": "dist/theme-multi-switch.js",
