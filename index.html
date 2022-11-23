@@ -14,7 +14,7 @@
 			<header class="content">
 				<h1>Theme Multi Switch Web Component</h1>
 				<div>
-					<p><strong>Super Small!</strong> 3.80 KiB / gzip: 1.47 KiB</p>
+					<p><strong>Super Small!</strong> 4.03 KiB / gzip: 1.74 KiB</p>
 					<p>Github: <a href="https://github.com/colinaut/theme-multi-switch">colinaut/theme-multi-switch</a></p>
 					<p>NPM: <a href="https://www.npmjs.com/package/@colinaut/theme-multi-switch">@colinaut/theme-multi-switch</a></p>
 				</div>
@@ -27,13 +27,9 @@
 						<p><theme-switch meta-colors="#eee,auto,#333"></theme-switch></p>
 					</div>
 					<div>
-						<h3>Modified css variables/parts</h3>
-						<p><theme-switch class="switch-alt" meta-colors="#eee,auto,#333"></theme-switch></p>
-					</div>
-					<div>
 						<h3>Modified css with svgs in slots</h3>
 						<p>
-							<theme-switch class="switch-alt2" meta-colors="#eee,auto,#333">
+							<theme-switch class="bigger highlight" meta-colors="#eee,auto,#333">
 								<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" slot="light" width="1.4em">
 									<path fill="currentcolor" d="M2.016 12q0-4.125 2.93-7.055t7.055-2.93 7.055 2.93 2.93 7.055-2.93 7.055-7.055 2.93-7.055-2.93-2.93-7.055z"></path>
 								</svg>
@@ -49,44 +45,43 @@
 					</div>
 					<div>
 						<h3>Different Themes</h3>
-						<p><theme-switch themes="heaven,earth,hell" layout="bottom around"></theme-switch></p>
+						<p><theme-switch class="highlight" themes="heaven,earth,hell"></theme-switch></p>
 					</div>
 					<div>
-						<h3>Different Themes</h3>
-						<p><theme-switch themes="heaven,hell" theme="hell"></theme-switch></p>
+						<h3>Two Switch</h3>
+						<p><theme-switch class="highlight" themes="heaven,hell"></theme-switch></p>
 					</div>
 					<div>
-						<h3>Different Themes</h3>
+						<h3>Two Switch Layout "top"</h3>
 						<p>
-							<theme-switch id="fourway" themes="heaven,earth,limbo,hell" layout="bottom" knob-width="4"></theme-switch>
+							<theme-switch class="highlight two-switch-top" themes="heaven,hell" layout="top" knob-width="4"></theme-switch>
 						</p>
-						<p><button onClick="setToHell('fourway')">switch to hell</button></p>
+					</div>
+					<div>
+						<h3>Four Switch Layout "bottom"</h3>
+						<p>
+							<theme-switch class="highlight four-switch-bottom" themes="heaven,earth,limbo,hell" layout="bottom" knob-width="4"></theme-switch>
+						</p>
 					</div>
 				</div>
-				<script>
-					function setToHell(id) {
-						const tSwitch = document.getElementById(id);
-						console.log("🚀 ~ file: index.html ~ line 67 ~ setToHell ~ switch", tSwitch);
-						tSwitch.setAttribute("theme", "hell");
-					}
-				</script>
 			</section>
 			<section class="content">
 				<p>
-					I created this theme switch as I couldn't find what I was looking for. So I built this multi switch which defaults to "auto" (for browser prefers-color-scheme)
-					and allows "light" or "dark" for overriding prefers-color-scheme. If desired the theme names can be modified from their defaults via props.
+					I created this three way switch for setting theme as I couldn't find what I was looking for — most are two way switches and I wanted to allow for auto. So I
+					built a three way switch which defaults to "auto" (for browser prefers-color-scheme) and allows "light" or "dark" for overriding prefers-color-scheme. I quickly
+					realized that I could just as easily make it work with multiple themes!
 				</p>
 				<p>When switched is triggered it:</p>
 				<ul>
 					<li>Adds current theme to data-theme attribute on the html element.</li>
 					<li>Stores the current theme in localStorage under "theme" — <em>component checks for this on reload to set current theme state</em>.</li>
 					<li>Triggers a "theme-switch" custom event with the current theme as detail.</li>
-					<li>Optionally, updates meta theme-color using the "meta" props.</li>
+					<li>
+						Optionally, updates meta theme-color using the "meta-colors" prop.
+						<em>This requires that the meta-colors prop is set and that the meta theme-color is included in your html.</em>
+					</li>
 				</ul>
-				<p>
-					For best results, add this to your &lt;head&gt; so that it is render blocking. This avoids
-					<a href="https://css-tricks.com/flash-of-inaccurate-color-theme-fart/">Flash of inAccurate coloR Theme (FART)</a>.
-				</p>
+				<p>You can also trigger the switch externally by either changing the "theme" prop or dispatching a "theme-switch" event with the theme in the detail.</p>
 			</section>
 			<section>
 				<h2>Installation</h2>
@@ -95,6 +90,10 @@
 				<code>&lt;script src="https://unpkg.com/@colinaut/theme-multi-switch@1/dist/theme-multi-switch.js">&lt;/script></code>
 				<p>Or you can pull it into your project via npm:</p>
 				<code>npm i @colinaut/theme-multi-switch</code>
+				<p>
+					For best results, add this to your &lt;head&gt; so that it is render blocking. This avoids
+					<a href="https://css-tricks.com/flash-of-inaccurate-color-theme-fart/">Flash of inAccurate coloR Theme (FART)</a>.
+				</p>
 			</section>
 
 			<section class="content">
@@ -104,26 +103,29 @@
 						Sizing uses em so it can be resized by changing the css font-size. Base color for text, knob, and track border uses currentColor so it will update if you
 						change the body text color.
 					</p>
+					<p>The layout and knob-width properties</p>
 					<p>Further restyling is possible via slots, parts, and css variables. Properties allows changing defaults and values for changing meta theme-color.</p>
 				</div>
 				<div class="grid-cols-2 gap-8">
 					<div>
-						<h3>Slots</h3>
+						<h3>Default Slots</h3>
 						<ul>
-							<li>left</li>
-							<li>mid</li>
-							<li>right</li>
+							<li>light</li>
+							<li>auto</li>
+							<li>dark</li>
 						</ul>
+						<p><em>Slots are dynamically named after the theme names.</em></p>
 					</div>
 					<div>
-						<h3>Parts</h3>
+						<h3>Default Parts</h3>
 						<ul>
-							<li>left</li>
-							<li>mid</li>
-							<li>right</li>
+							<li>light</li>
+							<li>auto</li>
+							<li>dark</li>
 							<li>track</li>
 							<li>knob</li>
 						</ul>
+						<p><em>Label Parts are dynamically named after the theme names.</em></p>
 					</div>
 					<div>
 						<h3>CSS Color Variables</h3>
@@ -132,19 +134,19 @@
 							<li>--theme-switch-track <code>background: var(--theme-switch-track, #88888822);</code></li>
 							<li>--theme-switch-track-border <code>border: 0.1em solid var(--theme-switch-border, currentColor);</code></li>
 							<li>--theme-switch-highlight <code>color: var(--theme-switch-highlight, inherit);</code></li>
+							<li>--theme-switch-knob-width <code>width: calc(var(--theme-switch-knob-width, 1) * 1em);</code></li>
 						</ul>
 					</div>
 					<div>
 						<h3>Properties</h3>
 						<ul>
-							<li>left = "light"</li>
-							<li>mid = "auto"</li>
-							<li>right = "dark"</li>
-							<li>theme = mid</li>
-							<li>meta-left = ""</li>
-							<li>meta-mid = ""</li>
-							<li>meta-right = ""</li>
+							<li>themes = "light,auto,dark"</li>
+							<li>theme = defaults to themes[1]</li>
+							<li>meta-colors = ""</li>
+							<li>layout = "around top"</li>
 						</ul>
+						<p><em>themes and meta-colors accepts either a comma separated string or a stringified JSON array</em></p>
+						<p><em>layout can be either "around top", "around bottom", or just "top" or "bottom"</em></p>
 					</div>
 				</div>
 			</section>

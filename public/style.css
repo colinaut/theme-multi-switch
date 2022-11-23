@@ -126,8 +126,8 @@ li {
 	--header-dark: rgb(250, 180, 120);
 	--body-dark: rgb(225, 225, 225);
 	--bg-dark: rgb(45, 45, 65);
-	--track-dark: rgb(105 85 55 /0.6);
-	--highlight-dark: rgb(225, 120, 100);
+	--track-dark: rgb(95 95 85 /0.8);
+	--highlight-dark: rgb(235, 130, 110);
 }
 
 /* Automatic Light Mode; Light Mode Override */
@@ -160,18 +160,45 @@ li {
 	}
 }
 
+:root[data-theme="heaven"] {
+	--header: navy;
+	--body: steelblue;
+	--bg: azure;
+	--track: lightskyblue;
+	--highlight: slateblue;
+}
+:root[data-theme="hell"] {
+	--header: black;
+	--body: firebrick;
+	--bg: orangered;
+	--track: darkorange;
+	--highlight: yellow;
+}
+:root[data-theme="earth"] {
+	--header: brown;
+	--body: saddlebrown;
+	--bg: wheat;
+	--track: darkseagreen;
+	--highlight: green;
+}
+:root[data-theme="limbo"] {
+	--header: lightgray;
+	--body: gainsboro;
+	--bg: ghostwhite;
+	--track: lavender;
+	--highlight: lightsteelblue;
+}
+
 body {
 	background-color: var(--bg);
 	color: var(--body);
 }
 
-.switch-alt {
-	font-size: 1.4em;
-	--theme-switch-track: var(--track);
-	--theme-switch-highlight: var(--highlight);
+.bigger {
+	font-size: 1.3em;
 }
 
-.switch-alt2 {
+.highlight {
 	--theme-switch-track: var(--track);
 	--theme-switch-knob: var(--highlight);
 	--theme-switch-highlight: var(--highlight);
@@ -186,7 +213,18 @@ theme-switch:not(:defined) {
 
 theme-switch.switch-alt::part(knob) {
 	border-radius: 9999px;
+	box-shadow: -0.05em -0.1em 0.05em rgb(50 50 50 / 0.6) inset;
+	border: 1px solid var(--track);
+	box-sizing: border-box;
 }
 theme-switch.switch-alt::part(track) {
 	border-radius: 9999px;
+	box-shadow: 0.05em 0.1em 0.05em rgb(50 50 50 / 0.6) inset;
+}
+
+theme-switch.four-switch-bottom {
+	--theme-switch-knob-width: 3.6;
+}
+theme-switch.two-switch-top {
+	--theme-switch-knob-width: 3;
 }

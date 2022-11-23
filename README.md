@@ -1,17 +1,17 @@
 # Theme Multi Switch Web Component
 
-I created this three way switch for setting theme as I couldn't find what I was looking for — most are two way switches and I wanted to allow for auto. So I built this three way switch which defaults to "auto" (for browser prefers-color-scheme) and allows "light" or "dark" for overriding prefers-color-scheme. 
-
-Super small! 3.80 KiB / gzip: 1.47 KiB
+I created this three way switch for setting theme as I couldn't find what I was looking for — most are two way switches and I wanted to allow for auto. So I built a three way switch which defaults to "auto" (for browser prefers-color-scheme) and allows "light" or "dark" for overriding prefers-color-scheme. I quickly realized that I could just as easily make it work with multiple themes!
 
 When switch is triggered it:
 
 *   Adds current theme to data-theme attribute on the html element.
 *   Stores the current theme in localStorage under "theme" — _component checks for this on reload to set current theme state_.
 *   Triggers a "theme-switch" custom event with the current theme as detail.
-*   Optionally, updates meta theme-color using the "meta" props.
+*   Optionally, updates meta theme-color using the "meta-color" prop. _This requires that the meta-colors prop is set and that the meta theme-color is included in your html._
 
-If desired the theme names can be modified from their defaults via props. 
+You can also trigger the switch externally by either changing the "theme" prop or dispatching a "theme-switch" event with the theme in the detail.
+
+If desired the theme names can be modified from their defaults via props.
 
 ## Installation
 
@@ -55,36 +55,42 @@ Sizing uses em so it can be resized by changing the css font-size. Base color fo
 
 Further restyling is possible via slots, parts, and css variables. Properties allows changing defaults and values for changing meta theme-color.
 
-### Slots
+### Default Slots
 
-*   left
-*   mid
-*   right
+*   light
+*   auto
+*   dark
 
-### Parts
+_Slots are dynamically named after the theme names._
 
-*   left
-*   mid
-*   right
+### Default Parts
+
+*   light
+*   auto
+*   dark
 *   track
 *   knob
 
-### CSS Color Variables
+_Label Parts are dynamically named after the theme names._
+
+### CSS Variables
 
 *   \--theme-switch-knob `background: var(--theme-switch-knob, currentColor);`
 *   \--theme-switch-track `background: var(--theme-switch-track, #88888822);`
 *   \--theme-switch-track-border `border: 0.1em solid var(--theme-switch-border, currentColor);`
 *   \--theme-switch-highlight `color: var(--theme-switch-highlight, inherit);`
+*   \--theme-switch-knob-width `width: calc(var(--theme-switch-knob-width, 1) * 1em);`
 
 ### Properties
 
-*   left = "light"
-*   mid = "auto"
-*   right = "dark"
-*   theme = mid
-*   meta-left = ""
-*   meta-mid = ""
-*   meta-right = ""
+*   themes = "light,auto,dark"
+*   theme = defaults to themes[1]
+*   meta-colors = ""
+*   layout = "around top"
+
+_themes and meta-colors accepts either a comma separated string or a stringified JSON array_
+
+_layout can be either "around top", "around bottom", or just "top" or "bottom"_
 
 ## Example Auto/Light/Dark CSS
 
@@ -138,8 +144,3 @@ Further restyling is possible via slots, parts, and css variables. Properties al
     }
 }
 ```
-
-- [ ] change name of github repository
-- [ ] change name of folder
-- [ ] Add remove console.log from build
-- [ ] Add remove / from scripts for build docs
