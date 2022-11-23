@@ -20,7 +20,7 @@ Add the theme-multi-switch.js script to your project. Then add the component `<t
 ### CDN
 
 ```
-<script src="https://unpkg.com/@colinaut/theme-multi-switch@1/dist/theme-multi-switch.js"></script>
+<script src="https://unpkg.com/@colinaut/theme-multi-switch/dist/theme-multi-switch.js"></script>
 ```
 
 For best results, add this to your `<head>` without defer so that it is render blocking. This avoids [Flash of inAccurate coloR Theme (FART)](https://css-tricks.com/flash-of-inaccurate-color-theme-fart/).
