@@ -6,10 +6,13 @@ import minifyHTML from "rollup-plugin-minify-html-literals";
 export default defineConfig({
 	build: {
 		sourcemap: true,
+		modulePreload: {
+			polyfill: false,
+		},
 		rollupOptions: {
 			input: {
 				index: resolve(__dirname, "index.html"),
-				"theme-3way-switch": resolve(__dirname, "./src/main.ts"),
+				"theme-multi-switch": resolve(__dirname, "./src/main.ts"),
 			},
 			output: [
 				// {

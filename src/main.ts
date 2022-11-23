@@ -10,122 +10,164 @@ export default class ThemeSwitch extends HTMLElement {
 		return this.getAttribute(attr) || fallback;
 	}
 
-	get left() {
-		return this.getA("left", "light");
-	}
-	get mid() {
-		return this.getA("mid", "auto");
-	}
-	get right() {
-		return this.getA("right", "dark");
-	}
-	get metaLeft() {
-		return this.getA("meta-left");
-	}
-	get metaMid() {
-		return this.getA("meta-mid");
-	}
-	get metaRight() {
-		return this.getA("meta-right");
-	}
-	get theme() {
-		return this.getA("theme") || this.mid;
+	private getArray(attr: string, fallback: string[] = []): string[] {
+		const temp = this.getA(attr, "");
+		if (!temp) return fallback;
+
+		let tempArray: string[] = [];
+		try {
+			// check to see if this is a JSON string
+			tempArray = JSON.parse(temp);
+		} catch (err) {
+			// check to see if this a comma separated string
+			tempArray = temp.split(",");
+		}
+		if (Array.isArray(tempArray)) {
+			return tempArray;
+		} else return fallback;
 	}
 
+	get layout(): string {
+		return this.getA("layout", "around top");
+	}
+	get knobW(): number {
+		return Number(this.getA("knob-width", "1"));
+	}
+	get themes(): string[] {
+		return this.getArray("themes", ["light", "auto", "dark"]);
+	}
+	get meta(): string[] {
+		return this.getArray("meta-colors", []);
+	}
+	get theme() {
+		return this.getA("theme") || this.themes[1];
+	}
 	set theme(theme) {
 		this.setAttribute("theme", theme);
 	}
 
 	static get observedAttributes(): string[] {
-		return ["left", "mid", "right", "theme", "meta-left", "meta-mid", "meta-right"];
+		return ["themes", "theme", "meta-colors", "knob-width", "layout"];
 	}
-
-	private active = "mid";
 
 	public connectedCallback(): void {
 		const savedTheme = window.localStorage.getItem("theme");
 		if (savedTheme) {
-			this.setTheme(this, savedTheme);
+			const active = this.themes.indexOf(savedTheme);
+			if (active >= 0) {
+				this.setTheme(this, savedTheme);
+			}
+		} else {
+			const themeAttr = this.themes.indexOf(this.theme);
+			if (themeAttr >= 0) {
+				this.setTheme(this, this.theme);
+			}
 		}
+
 		this.render();
 		this.addEventListeners();
-		document.addEventListener("theme-switch", (event) => {
-			if (this.theme !== (<CustomEvent>event).detail) this.setTheme(this, (<CustomEvent>event).detail);
-		});
 	}
 
 	private addEventListeners(): void {
 		this.shadow.addEventListener(
 			"click",
 			(event) => {
-				this.eventListeners(this, event);
+				const el = event.target as HTMLInputElement;
+				if (el?.checked && el.value !== this.theme) {
+					this.theme = el.value;
+				}
 			},
 			false
 		);
-	}
 
-	private eventListeners($this: ThemeSwitch, e: Event): void {
-		const el = e.target as HTMLInputElement;
-		if (el?.checked) {
-			$this.setTheme($this, el.value);
-		}
-		$this.dispatchEvent(
-			new CustomEvent("theme-switch", {
-				detail: this.theme,
-				bubbles: true,
-				cancelable: true,
-				composed: true,
-			})
-		);
+		// Event Listener for "theme-switch" custom event
+		document.addEventListener("theme-switch", (event) => {
+			const theme = (<CustomEvent>event).detail;
+			// only trigger if theme exists and is not active
+			if (theme && theme !== this.theme && this.themes.includes(theme)) {
+				// console.log("theme-switch event received", theme);
+				this.theme = theme;
+			}
+		});
 	}
 
 	private setTheme($this: ThemeSwitch, theme: string): void {
-		const html = document.querySelector("html");
+		const active = $this.themes.indexOf(theme);
 
-		// Set data-theme on html element
-		if (html) {
-			html.setAttribute("data-theme", theme);
+		// Only run if theme exists
+		if (active > -1) {
+			const html = document.querySelector("html");
+			const metaThemeColor = document.querySelector("meta[name='theme-color']");
+			let metaColor = $this.meta[active];
+
+			// Set data-theme on html element
+			if (html) {
+				html.setAttribute("data-theme", theme);
+			}
+
+			// Set meta theme-color if available
+			if (metaThemeColor && metaColor) {
+				if (metaColor === "auto") {
+					const light = $this.themes.indexOf("light");
+					const dark = $this.themes.indexOf("dark");
+					if (window.matchMedia("(prefers-color-scheme: dark)").matches && dark > -1) {
+						metaColor = $this.meta[dark];
+					} else if (window.matchMedia("(prefers-color-scheme: light)").matches && light > -1) {
+						metaColor = $this.meta[light];
+					}
+				}
+				metaThemeColor.setAttribute("content", metaColor);
+			}
+
+			// Store theme
+			window.localStorage.setItem("theme", theme);
+
+			// dispatch event
+			this.dispatchEvent(
+				new CustomEvent("theme-switch", {
+					detail: theme,
+					bubbles: true,
+					cancelable: true,
+					composed: true,
+				})
+			);
 		}
-
-		// Default theme is mid
-		let active = "mid";
-		let color = $this.metaMid;
-
-		// Switch if otherwise
-		if (theme === $this.left) {
-			active = "left";
-			color = $this.metaLeft;
-		}
-		if (theme === $this.right) {
-			active = "right";
-			color = $this.metaRight;
-		}
-
-		// Set meta theme-color if available
-		const metaThemeColor = document.querySelector("meta[name='theme-color']");
-		if (metaThemeColor && color) {
-			console.log(color);
-			metaThemeColor.setAttribute("content", color);
-		}
-
-		// Store theme
-		window.localStorage.setItem("theme", theme);
-
-		console.log(active, theme);
-
-		// set active and theme
-		$this.active = active;
-		$this.theme = theme;
 	}
 
-	public attributeChangedCallback() {
+	public attributeChangedCallback(name: string, oldValue: string, newValue: string) {
 		// console.log("changed", name, oldValue, newValue);
+
+		// only run if value for theme has changed
+		if (name === "theme" && newValue !== oldValue) {
+			this.setTheme(this, newValue);
+		}
+
 		this.render();
 	}
 
 	private render() {
-		this.shadow.innerHTML = `
-        <!-- css-->
+		const themes = this.themes;
+
+		const cssLabelHighlight = themes.map((theme) => `[data-active="${theme}"] [part="${theme}"]`).join(",") + `{color: var(--theme-switch-highlight, inherit)}`;
+
+		const cssKnobs = themes
+			.map((theme, i) => `[data-active="${theme}"] .knob { left: ${(i / (themes.length - 1)) * 100}%; transform: translateX(-${(i / (themes.length - 1)) * 100}%); }`)
+			.join("");
+
+		const cssTrackSpanWidth = this.knobW - 0.2;
+
+		let cssMidPadding = "1em 0 0";
+
+		let cssMidLabelPosition = "top";
+
+		if (this.layout.includes("bottom")) {
+			cssMidPadding = "0 0 1em";
+			cssMidLabelPosition = "bottom";
+		}
+		if (this.themes.length < 3) {
+			cssMidPadding = "0";
+		}
+		const css = `
         <style>
             .wrap {
                 position: relative;
@@ -135,10 +177,11 @@ export default class ThemeSwitch extends HTMLElement {
             }
             .side {
                 height: 1.2em;
+                padding: ${cssMidPadding};
             }
             .mid {
                 position: relative;
-                padding-top: 1em;
+                padding: ${cssMidPadding};
             }
             label {
                 cursor: pointer;
@@ -148,12 +191,6 @@ export default class ThemeSwitch extends HTMLElement {
                 align-items: center;
                 font-weight: 700;
                 font-size: 0.8em;
-            }
-            .track span {
-                width: 0.8em;
-                flex-shrink: 0;
-                bottom: 0px;
-                position: relative;
             }
             input {
                 position: absolute;
@@ -166,23 +203,19 @@ export default class ThemeSwitch extends HTMLElement {
                 cursor: pointer;
                 opacity: 0;
             }
-            .mid label {
-                display: block;
+            .mid .labels {
+                display: flex;
+                justify-content: space-around;
                 position: absolute;
                 width: 100%;
-                top: 0px;
+                ${cssMidLabelPosition}: 0px;
                 text-align: center;
             }
-            .knob {
-                left: 50%;
-                transform: translateX(-50%);
-                position: absolute;
-                top: 0em;
-                background: var(--theme-switch-knob, currentColor);
-                transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-                width: 1em;
-                height: 1em;
-                border-radius: 0.1em;
+            .mid label {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                padding: 0 .2em;
             }
             .track {
                 background: var(--theme-switch-track, #88888822);
@@ -192,48 +225,61 @@ export default class ThemeSwitch extends HTMLElement {
                 padding: 0 0.1em;
                 position: relative;
                 grid-area: switch;
-                width: 2.4em;
+                width: ${cssTrackSpanWidth * themes.length}em;
                 display: flex;
             }
-            [data-active="left"] .knob {
-                left: 0;
-                transform: translateX(0%);
+            .track span {
+                width: ${cssTrackSpanWidth}em;
+                flex-shrink: 0;
+                bottom: 0px;
+                position: relative;
             }
-            [data-active="right"] .knob {
-                left: 100%;
-                transform: translateX(-100%);
+            .knob {
+                left: 50%;
+                transform: translateX(-50%);
+                position: absolute;
+                top: 0em;
+                background: var(--theme-switch-knob, currentColor);
+                transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+                width: ${this.knobW}em;
+                height: 1em;
+                border-radius: 0.1em;
             }
-            [data-active="left"] [part="left"],
-            [data-active="mid"] [part="mid"],
-            [data-active="right"] [part="right"] {
-                color: var(--theme-switch-highlight, inherit);
-            }
+            ${cssKnobs}
+            ${cssLabelHighlight}
         </style>
-        <!-- html -->
-        <div class="wrap" data-active=${this.active}>
-            <div class="side">
-                <label title="${this.left}" for="left" part="left">
-                    <slot name="left">${this.left}</slot>
-                </label>
-            </div>
-            <div class="mid">
-                <label title="${this.mid}" for="mid" part="mid">
-                    <slot name="mid">${this.mid}</slot>
-                </label>
+        `;
+
+		let labels = themes.map((theme) => `<label title="${theme}" for="${theme}" part="${theme}"><slot name="${theme}">${theme}</slot></label>`);
+
+		const radios = themes.map(
+			(theme) => `<span><input value=${theme} type="radio" name="theme" id="${theme}" ?checked=${this.theme === theme} aria-label="${theme} theme" /></span>`
+		);
+
+		let side = ["", ""];
+
+		if (this.layout.includes("around")) {
+			side[0] = `<div class="side">${labels[0]}</div>`;
+			side[1] = `<div class="side">${labels[this.themes.length - 1]}</div>`;
+			// remove first and last labels
+			labels.pop();
+			labels.shift();
+		}
+
+		let html = `
+        <div class="wrap" data-active=${this.theme}>
+            ${side[0]}
+            <div class="mid"><div class="labels">${labels.join("")}</div>
                 <div class="track" part="track">
-                    <span><input value=${this.left} type="radio" name="theme" id="left" ?checked=${this.active === "left"} aria-label="${this.left} theme" /></span>
-                    <span><input value=${this.mid} type="radio" name="theme" id="mid" ?checked=${this.active === "mid"} aria-label="${this.mid} theme" /></span>
-                    <span><input value=${this.right} type="radio" name="theme" id="right" ?checked=${this.active === "right"} aria-label="${this.right} theme" /></span>
+                    ${radios.join("")}
                     <div class="knob" part="knob"></div>
                 </div>
             </div>
-            <div class="side">
-                <label title="${this.right}" for="right" part="right">
-                    <slot name="right">${this.right}</slot>
-                </label>
-            </div>
+            ${side[1]}
         </div>
-    `;
+        `;
+
+		this.shadow.innerHTML = `${css}${html}`;
 	}
 }
 customElements.define("theme-switch", ThemeSwitch);

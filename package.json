@@ -1,9 +1,9 @@
 {
-	"name": "@colinaut/theme-3way-switch",
+	"name": "@colinaut/theme-multi-switch",
 	"version": "1.0.3",
 	"type": "module",
-	"main": "dist/theme-3way-switch.js",
-	"unpkg": "dist/theme-3way-switch.js",
+	"main": "dist/theme-multi-switch.js",
+	"unpkg": "dist/theme-multi-switch.js",
 	"keywords": [
 		"web component",
 		"typescript",
@@ -11,15 +11,15 @@
 	],
 	"author": "Colin Fahrion",
 	"license": "MIT",
-	"repository": "https://github.com/colinaut/theme-3way-switch.git",
+	"repository": "https://github.com/colinaut/theme-multi-switch.git",
 	"publishConfig": {
 		"access": "public"
 	},
-	"homepage": "https://colinaut.github.io/theme-3way-switch/",
+	"homepage": "https://colinaut.github.io/theme-multi-switch/",
 	"scripts": {
 		"test": "echo \"No test specified\"",
 		"dev": "vite",
-		"build": "tsc && vite build && cpy 'docs/theme-3way-switch.*' 'dist'",
+		"build": "tsc && vite build && cpy 'docs/theme-multi-switch.*' 'dist'",
 		"preview": "vite preview"
 	},
 	"devDependencies": {

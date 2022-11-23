@@ -1,4 +1,4 @@
-# Theme 3way Switch Web Component
+# Theme Multi Switch Web Component
 
 I created this three way switch for setting theme as I couldn't find what I was looking for — most are two way switches and I wanted to allow for auto. So I built this three way switch which defaults to "auto" (for browser prefers-color-scheme) and allows "light" or "dark" for overriding prefers-color-scheme. 
 
@@ -15,12 +15,12 @@ If desired the theme names can be modified from their defaults via props.
 
 ## Installation
 
-Add the theme-3way-switch.js script to your project. Then add the component `<theme-switch></theme-switch>` to your html.
+Add the theme-multi-switch.js script to your project. Then add the component `<theme-switch></theme-switch>` to your html.
 
 ### CDN
 
 ```
-<script src="https://unpkg.com/@colinaut/theme-3way-switch@1/dist/theme-3way-switch.js"></script>
+<script src="https://unpkg.com/@colinaut/theme-multi-switch@1/dist/theme-multi-switch.js"></script>
 ```
 
 For best results, add this to your `<head>` without defer so that it is render blocking. This avoids [Flash of inAccurate coloR Theme (FART)](https://css-tricks.com/flash-of-inaccurate-color-theme-fart/).
@@ -28,11 +28,11 @@ For best results, add this to your `<head>` without defer so that it is render b
 ### NPM/PNPM/YARN
 
 ```
-npm i @colinaut/theme-3way-switch
+npm i @colinaut/theme-multi-switch
 
-pnpm i @colinaut/theme-3way-switch
+pnpm i @colinaut/theme-multi-switch
 
-yarn add @colinaut/theme-3way-switch
+yarn add @colinaut/theme-multi-switch
 
 ```
 
@@ -42,11 +42,11 @@ If you are using [Eleventy](https://www.11ty.dev), and want to install locally r
 
 ```
 eleventyConfig.addPassthroughCopy({
-    "node_modules/@colinaut/theme-3way-switch/dist/theme-3way-switch.js": "js/theme-3way-switch.js",
+    "node_modules/@colinaut/theme-multi-switch/dist/theme-multi-switch.js": "js/theme-multi-switch.js",
 })
 ```
 ```
-<script src="/js/theme-3way-switch.js"></script>
+<script src="/js/theme-multi-switch.js"></script>
 ```
 
 ## Modifying
@@ -138,3 +138,8 @@ Further restyling is possible via slots, parts, and css variables. Properties al
     }
 }
 ```
+
+- [ ] change name of github repository
+- [ ] change name of folder
+- [ ] Add remove console.log from build
+- [ ] Add remove / from scripts for build docs
