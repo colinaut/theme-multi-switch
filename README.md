@@ -2,6 +2,8 @@
 
 I created this three way switch for setting theme as I couldn't find what I was looking for — most are two way switches and I wanted to allow for auto. So I built a three way switch which defaults to "auto" (for browser prefers-color-scheme) and allows "light" or "dark" for overriding prefers-color-scheme. I quickly realized that I could just as easily make it work with multiple themes!
 
+Check out the [Demo Page](https://colinaut.github.io/theme-multi-switch/)
+
 When switch is triggered it:
 
 *   Adds current theme to data-theme attribute on the html element.
