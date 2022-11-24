@@ -154,7 +154,7 @@ export default class ThemeSwitch extends HTMLElement {
 			cssMidPadding = "0 0 1em";
 			cssMidLabelPosition = "bottom: 0px;";
 		}
-		if (this.themes.length < 3 && this.layout.includes("around")) {
+		if (themes.length < 3 && this.layout.includes("around")) {
 			cssMidPadding = "0";
 		}
 		const css = `
