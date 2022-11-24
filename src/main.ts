@@ -77,7 +77,7 @@ export default class ThemeSwitch extends HTMLElement {
 			const theme = (<CustomEvent>event).detail;
 			// only trigger if theme exists and is not active
 			if (theme && theme !== this.theme && this.themes.includes(theme)) {
-				// console.log("theme-switch event received", theme);
+				console.log("theme-switch event received", theme);
 				this.theme = theme;
 			}
 		});
@@ -97,6 +97,7 @@ export default class ThemeSwitch extends HTMLElement {
 				html.setAttribute("data-theme", theme);
 			}
 
+			// TODO: improve this somehow?
 			// Set meta theme-color if available
 			if (metaThemeColor && metaColor) {
 				if (metaColor === "auto") {
