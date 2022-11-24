@@ -6,7 +6,7 @@ When switch is triggered it:
 
 *   Adds current theme to data-theme attribute on the html element.
 *   Stores the current theme in localStorage under "theme" — _component checks for this on reload to set current theme state_.
-*   Triggers a "theme-switch" custom event with the current theme as detail.
+*   Triggers a "theme-switch" custom event with the current theme as detail. _This will automatically update any other theme-switch components on the page._
 *   Optionally, updates meta theme-color using the "meta-color" prop. _This requires that the meta-colors prop is set and that the meta theme-color is included in your html._
 
 You can also trigger the switch externally by either changing the "theme" prop or dispatching a "theme-switch" event with the theme in the detail.

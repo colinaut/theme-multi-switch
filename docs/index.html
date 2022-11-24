@@ -24,11 +24,11 @@
 				<h2>Examples</h2>
 				<div class="grid-cols-3 gap-8">
 					<div>
-						<h3>Base</h3>
+						<h3>Default</h3>
 						<p><theme-switch meta-colors="#eee,auto,#333"></theme-switch></p>
 					</div>
 					<div>
-						<h3>Modified css with svgs in slots</h3>
+						<h3>Restyled</h3>
 						<p>
 							<theme-switch class="bigger highlight switch-alt" meta-colors="#eee,auto,#333">
 								<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" slot="light" width="1.4em">
@@ -43,6 +43,7 @@
 								</svg>
 							</theme-switch>
 						</p>
+						<p>Modified css variables, css styling of parts, and added svgs to slots</p>
 					</div>
 					<div>
 						<h3>Different Themes</h3>
@@ -53,16 +54,18 @@
 						<p><theme-switch class="highlight" themes="heaven,hell"></theme-switch></p>
 					</div>
 					<div>
-						<h3>Two Switch Layout "top"</h3>
+						<h3>Two Switch</h3>
 						<p>
 							<theme-switch class="highlight two-switch-top" themes="heaven,hell" layout="top" knob-width="4"></theme-switch>
 						</p>
+						<p>Layout "top" with increased knob width</p>
 					</div>
 					<div>
-						<h3>Four Switch Layout "bottom"</h3>
+						<h3>Four Switch</h3>
 						<p>
 							<theme-switch class="highlight four-switch-bottom" themes="heaven,earth,limbo,hell" layout="bottom" knob-width="4"></theme-switch>
 						</p>
+						<p>Layout "bottom" with increased knob width</p>
 					</div>
 				</div>
 			</section>
@@ -76,10 +79,19 @@
 				<ul>
 					<li>Adds current theme to data-theme attribute on the html element.</li>
 					<li>Stores the current theme in localStorage under "theme" — <em>component checks for this on reload to set current theme state</em>.</li>
-					<li>Triggers a "theme-switch" custom event with the current theme as detail.</li>
+					<li>
+						Triggers a "theme-switch" custom event with the current theme as detail.
+						<em>This will automatically update any other theme-switch components on the page.</em>
+					</li>
 					<li>
 						Optionally, updates meta theme-color using the "meta-colors" prop.
-						<em>This requires that the meta-colors prop is set and that the meta theme-color is included in your html.</em>
+						<ul>
+							<li>This requires that the meta-colors prop is set and that the meta theme-color is included in your html.</li>
+							<li>
+								If you set one of the meta-colors to "auto" it will set the meta theme-color based on the current prefers-color-scheme. This only works if you are
+								also using "light" and "dark" as themes.
+							</li>
+						</ul>
 					</li>
 				</ul>
 				<p>You can also trigger the switch externally by either changing the "theme" prop or dispatching a "theme-switch" event with the theme in the detail.</p>
