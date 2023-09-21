@@ -20,13 +20,15 @@
 		"test": "echo \"No test specified\"",
 		"dev": "vite",
 		"build": "tsc && vite build && cpy 'docs/theme-multi-switch.*' 'dist'",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"release": "release-it"
 	},
 	"devDependencies": {
 		"cpy-cli": "^5.0.0",
 		"eslint": "^8.49.0",
 		"rollup-plugin-minify-html-literals": "^1.2.6",
 		"typescript": "^5.2.2",
-		"vite": "^4.4.9"
+		"vite": "^4.4.9",
+		"release-it": "^16.1.5"
 	}
 }
