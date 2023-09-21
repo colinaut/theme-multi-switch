@@ -23,10 +23,10 @@
 		"preview": "vite preview"
 	},
 	"devDependencies": {
-		"cpy-cli": "^4.2.0",
-		"eslint": "^8.28.0",
+		"cpy-cli": "^5.0.0",
+		"eslint": "^8.49.0",
 		"rollup-plugin-minify-html-literals": "^1.2.6",
-		"typescript": "^4.6.4",
-		"vite": "^3.2.3"
+		"typescript": "^5.2.2",
+		"vite": "^4.4.9"
 	}
 }
