@@ -97,7 +97,6 @@ export default class ThemeSwitch extends HTMLElement {
 				html.setAttribute("data-theme", theme);
 			}
 
-			// TODO: improve this somehow?
 			// Set meta theme-color if available
 			if (metaThemeColor && metaColor) {
 				if (metaColor === "auto") {
@@ -134,17 +133,15 @@ export default class ThemeSwitch extends HTMLElement {
 		if (name === "theme" && newValue !== oldValue) {
 			this.setTheme(this, newValue);
 		}
-
-		this.render();
 	}
 
 	private render() {
 		const themes = this.themes;
 
-		const cssLabelHighlight = themes.map((theme) => `[data-active="${theme}"] [part="${theme}"]`).join(",") + `{color: var(--theme-switch-highlight, inherit)}`;
+		const cssLabelHighlight = themes.map((theme) => `:host([theme="${theme}"]) [part="${theme}"]`).join(",") + `{color: var(--theme-switch-highlight, inherit)}`;
 
 		const cssKnobs = themes
-			.map((theme, i) => `[data-active="${theme}"] .knob { left: ${(i / (themes.length - 1)) * 100}%; transform: translateX(-${(i / (themes.length - 1)) * 100}%); }`)
+			.map((theme, i) => `:host([theme="${theme}"]) .knob { left: ${(i / (themes.length - 1)) * 100}%; transform: translateX(-${(i / (themes.length - 1)) * 100}%); }`)
 			.join("");
 
 		let cssMidPadding = "1em 0 0";
@@ -255,7 +252,7 @@ export default class ThemeSwitch extends HTMLElement {
 		}
 
 		let html = `
-        <div class="wrap" data-active=${this.theme}>
+        <div class="wrap">
             ${side[0]}
             <div class="mid"><div class="labels">${labels.join("")}</div>
                 <div class="track" part="track">
