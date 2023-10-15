@@ -116,22 +116,22 @@ _layout can be either "around top", "around bottom", or just "top" or "bottom"_
 /\* Automatic Light Mode; Light Mode Override \*/
 
 :root,
-:root\[data-theme="light"\] {
+[data-theme="light"] {
     --header: var(--header-light);
     --body: var(--body-light);
     --bg: var(--bg-light);
-    --track: var(--track-light);
-    --highlight: var(--highlight-light);
+    --theme-switch-track: var(--track-light);
+    --theme-switch-highlight: var(--highlight-light);
 }
 
 /\* Dark Mode Override \*/
 
-:root\[data-theme="dark"\] {
+[data-theme="dark"] {
     --header: var(--header-dark);
     --body: var(--body-dark);
     --bg: var(--bg-dark);
-    --track: var(--track-dark);
-    --highlight: var(--highlight-dark);
+    --theme-switch-track: var(--track-dark);
+    --theme-switch-highlight: var(--highlight-dark);
 }
 
 /\* Automatic Dark Mode \*/
@@ -141,8 +141,8 @@ _layout can be either "around top", "around bottom", or just "top" or "bottom"_
         --header: var(--header-dark);
         --body: var(--body-dark);
         --bg: var(--bg-dark);
-        --track: var(--track-dark);
-        --highlight: var(--highlight-dark);
+        --theme-switch-track: var(--track-dark);
+        --theme-switch-highlight: var(--highlight-dark);
     }
 }
 ```

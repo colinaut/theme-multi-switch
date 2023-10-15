@@ -132,7 +132,7 @@ li {
 
 /* Automatic Light Mode; Light Mode Override */
 :root,
-:root[data-theme="light"] {
+[data-theme="light"] {
 	--header: var(--header-light);
 	--body: var(--body-light);
 	--bg: var(--bg-light);
@@ -141,7 +141,7 @@ li {
 }
 
 /* Dark Mode Override */
-:root[data-theme="dark"] {
+[data-theme="dark"] {
 	--header: var(--header-dark);
 	--body: var(--body-dark);
 	--bg: var(--bg-dark);
