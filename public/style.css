@@ -136,8 +136,8 @@ li {
 }
 
 /* Automatic Light Mode; Light Mode Override */
-:root,
-:root[data-theme="light"] {
+html,
+[data-theme="light"] {
 	--header: var(--header-light);
 	--body: var(--body-light);
 	--bg: var(--bg-light);
@@ -146,7 +146,7 @@ li {
 }
 
 /* Dark Mode Override */
-:root[data-theme="dark"] {
+[data-theme="dark"] {
 	--header: var(--header-dark);
 	--body: var(--body-dark);
 	--bg: var(--bg-dark);
@@ -156,7 +156,7 @@ li {
 
 /* Automatic Dark Mode */
 @media (prefers-color-scheme: dark) {
-	:root {
+	html:not([data-theme="light"]) {
 		--header: var(--header-dark);
 		--body: var(--body-dark);
 		--bg: var(--bg-dark);
