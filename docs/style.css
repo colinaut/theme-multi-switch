@@ -94,6 +94,11 @@ li {
 	grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.grid-auto-fit {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12em, 1fr));
+}
+
 .col-span-2 {
 	grid-column: span 2 / span 2;
 }
@@ -132,7 +137,7 @@ li {
 
 /* Automatic Light Mode; Light Mode Override */
 :root,
-[data-theme="light"] {
+:root[data-theme="light"] {
 	--header: var(--header-light);
 	--body: var(--body-light);
 	--bg: var(--bg-light);
@@ -141,7 +146,7 @@ li {
 }
 
 /* Dark Mode Override */
-[data-theme="dark"] {
+:root[data-theme="dark"] {
 	--header: var(--header-dark);
 	--body: var(--body-dark);
 	--bg: var(--bg-dark);
@@ -237,7 +242,7 @@ theme-switch.switch-alt::part(track) {
 }
 
 theme-switch.four-switch-bottom {
-	--theme-switch-knob-width: 3.6;
+	--theme-switch-knob-width: 2.9;
 }
 theme-switch.two-switch-top {
 	--theme-switch-knob-width: 3;
